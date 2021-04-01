@@ -19,6 +19,8 @@ class TestController extends AbstractController
         $res = new Response();
         $res->setContent($html);
         $res->headers->set('X-Token', md5("coucou"));
+        $res->setStatusCode(Response::HTTP_ACCEPTED);
+
         return $res;
     }
 
@@ -52,6 +54,19 @@ class TestController extends AbstractController
             'method' => $method,
             'students' => $students,
         ]);
+    }
+
+    /**
+     * @Route(
+     * "/test4/student/{id}/delete", 
+     * name="test4",
+     * requirements={"id"="\d+"}
+     * )
+     * 
+     */
+    public function test4($id)
+    {
+        return new Response($id);
     }
 }
 
