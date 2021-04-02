@@ -24,6 +24,6 @@ class ExoController extends AbstractController
 
         $square = $calculator->square($num);
 
-        return new Response(CalculatorService::PI);
+        return new Response($square);
     }
 }

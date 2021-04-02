@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Country;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -67,6 +68,53 @@ class TestController extends AbstractController
     public function test4($id)
     {
         return new Response($id);
+    }
+
+    /**
+     * @Route("/test5/{countryName}", name="test5")
+     */
+    public function test5($countryName)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $country = new Country();
+        $country->setName($countryName);
+
+        $em->persist($country); // pendind request
+        $em->flush(); // exec request
+       
+        return new Response(
+            sprintf('Country id %d', $country->getId())
+        );
+    }
+
+    /**
+     * @Route("/test6/{order}", name="test6")
+     * Affichage de la liste des pays
+     */
+    public function test6($order = 'ASC')
+    {
+        $repo = $this->getDoctrine()->getRepository(Country::class);
+        //$countries = $repo->findAll();
+        $countries = $repo->findBy([], ['name' => $order]);
+
+        return $this->render('test/test6.html.twig', [
+            'countries' => $countries
+        ]);
+    }
+
+    /**
+     * @Route("/test7/{id}", name="country_detail")
+     * Affichage d'un pays
+     */
+    public function test7($id)
+    {
+        $repo = $this->getDoctrine()->getRepository(Country::class);
+        $country = $repo->find(intval($id));
+
+        return $this->render('test/test7.html.twig', [
+            'country' => $country
+        ]);
     }
 }
 
