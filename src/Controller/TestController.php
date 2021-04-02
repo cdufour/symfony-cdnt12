@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Country;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -89,7 +90,7 @@ class TestController extends AbstractController
     }
 
     /**
-     * @Route("/test6/{order}", name="test6")
+     * @Route("/test6/{order}", name="country_list")
      * Affichage de la liste des pays
      */
     public function test6($order = 'ASC')
@@ -114,6 +115,34 @@ class TestController extends AbstractController
 
         return $this->render('test/test7.html.twig', [
             'country' => $country
+        ]);
+    }
+
+    /**
+     * @Route("/test8", name="country_form")
+     * Affichage d'un pays
+     */
+    public function test8(Request $req, EntityManagerInterface $em)
+    {
+        if ($req->getMethod() === 'POST') {
+            $name = $req->request->get('name');
+            $population = $req->request->get('population');
+
+            $country = new Country(); // flag => 'missing'
+            $country
+                ->setName($name)
+                ->setPopulation($population);
+
+            $em->persist($country);
+            $em->flush();
+
+            // redirection vers la liste des pays
+            return $this->redirectToRoute('country_list');
+        }
+
+
+        return $this->render('country/form.html.twig', [
+
         ]);
     }
 }

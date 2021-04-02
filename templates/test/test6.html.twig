@@ -9,6 +9,8 @@
         <tr>
             <th>#</td>
             <th>Nom</th>
+            <th>Population</th>
+            <th>Drapeau</th>
         </tr>
     </thead>
     <tbody>
@@ -17,6 +19,10 @@
             <td>{{ country.id }}</td>
             <td>
                 <a href="{{ path('country_detail', {id: country.id}) }}">{{ country.name }}</a>
+            </td>
+            <td>{{ country.population }}</td>
+            <td>
+                <img class="country" src="{{ country.fakeFlag() }}" alt="{{ country.name }}">
             </td>
         </tr>
        {% endfor %}

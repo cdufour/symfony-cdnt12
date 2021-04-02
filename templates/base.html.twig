@@ -4,8 +4,12 @@
         <meta charset="UTF-8">
         <title>Démo Symfony</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="{{ asset('css/main.css') }}">
     </head>
     <body>
+
+        {{ include('menu.html.twig') }}
+
         {% block body %}{% endblock %}
 
         {% block js %}{% endblock %}

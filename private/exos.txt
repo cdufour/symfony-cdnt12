@@ -7,3 +7,15 @@ Créer une route exos/exo1 (annotation + méthode associée)
 Cette route devra récupérer un paramètre "num" dans l'url
 La réponse retournée au client sera la valeur de "num" au carrée
 Exemple: si num=4, réponse => 16
+
+Exo 2
+Temps estimé: 20 minutes
+*/
+Créer une entité City avec les propriétés
+    name string 255
+    mayor string 100
+
+Créer une formulaire d'ajout d'une ville
+    templates/city/form.html.twig
+
+Créer une route  GET|POST exos/city dans le controller ExoController

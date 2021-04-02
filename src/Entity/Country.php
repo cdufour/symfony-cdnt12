@@ -22,6 +22,21 @@ class Country
      */
     private $name;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $population;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $flag;
+
+    public function __construct()
+    {
+        $this->flag = 'missing';
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -37,5 +52,43 @@ class Country
         $this->name = $name;
 
         return $this;
+    }
+
+    public function getPopulation(): ?int
+    {
+        return $this->population;
+    }
+
+    public function setPopulation(int $population): self
+    {
+        $this->population = $population;
+
+        return $this;
+    }
+
+    public function getFlag(): ?string
+    {
+        return $this->flag;
+    }
+
+    public function setFlag(string $flag): self
+    {
+        $this->flag = $flag;
+
+        return $this;
+    }
+
+    public function fakeFlag()
+    {
+        if ($this->isFlagMissing()) {
+            return '/img/flags/missing.png';
+        }
+        
+        return '/img/flags/' . lcfirst($this->name) . '.png';
+    }
+
+    private function isFlagMissing(): bool
+    {
+        return $this->flag === 'missing';
     }
 }
