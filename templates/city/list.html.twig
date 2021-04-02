@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<h1>Liste des villes</h1>
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>#</td>
+            <th>Nom</th>
+            <th>Maire</th>
+            <th>Pays</th>
+        </tr>
+    </thead>
+    <tbody>
+       {% for city in cities %}
+        <tr>
+            <td>{{ city.id }}</td>
+            <td>{{ city.name }}</td>
+            <td>{{ city.mayor }}</td>
+            
+            <td>
+            {% if city.country %}
+                {{ city.country.name }}
+            {% endif %}
+            </td>
+        </tr>
+       {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
